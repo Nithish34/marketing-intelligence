@@ -1,7 +1,7 @@
 [project]
 name = "multi-agent-marketing-system"
 version = "0.1.0"
-description = "A v1 three-agent marketing campaign generator with contracts, local RAG, safety checks, validation, and observability."
+description = "A v5 three-agent marketing campaign generator with benchmarks, prompts, optional HTTP JSON model support, exports, chunk-level RAG, safety checks, and observability."
 requires-python = ">=3.10"
 dependencies = []
 
@@ -11,4 +11,3 @@ marketing-agents = "marketing_agents.cli:main"
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-

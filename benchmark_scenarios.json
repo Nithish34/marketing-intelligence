@@ -1,0 +1,75 @@
+[
+  {
+    "name": "edtech_student_app",
+    "product": "StudyFlow AI",
+    "audience": "college students",
+    "goal": "increase app signups",
+    "tone": "motivating, clear, and practical",
+    "channels": ["Instagram", "YouTube", "Discord", "LinkedIn"],
+    "expected_source": "edu_tech_brand.md"
+  },
+  {
+    "name": "skincare_ecommerce",
+    "product": "GlowKind",
+    "audience": "people with sensitive skin",
+    "goal": "increase skincare purchases",
+    "tone": "calm, transparent, and reassuring",
+    "channels": ["Instagram", "TikTok", "email"],
+    "expected_source": "ecommerce_skincare_brand.md"
+  },
+  {
+    "name": "cybersecurity_saas",
+    "product": "SecureCloud",
+    "audience": "IT teams",
+    "goal": "book security demos",
+    "tone": "precise, credible, and calm",
+    "channels": ["LinkedIn", "webinars", "technical blogs"],
+    "expected_source": "cybersecurity_saas_brand.md"
+  },
+  {
+    "name": "fintech_budgeting",
+    "product": "PocketPilot",
+    "audience": "young professionals",
+    "goal": "increase budgeting app activations",
+    "tone": "simple, empowering, and honest",
+    "channels": ["TikTok", "Instagram", "YouTube", "email"],
+    "expected_source": "fintech_budgeting_brand.md"
+  },
+  {
+    "name": "healthcare_clinic",
+    "product": "Neighborhood Care Clinic",
+    "audience": "local families",
+    "goal": "increase appointment bookings",
+    "tone": "warm, clear, and respectful",
+    "channels": ["Google Search", "local SEO", "email"],
+    "expected_source": "healthcare_clinic_brand.md"
+  },
+  {
+    "name": "restaurant_cafe",
+    "product": "Corner Cup Cafe",
+    "audience": "busy local customers",
+    "goal": "increase breakfast visits",
+    "tone": "friendly, warm, and casual",
+    "channels": ["Instagram", "Google Business Profile", "SMS"],
+    "expected_source": "restaurant_cafe_brand.md"
+  },
+  {
+    "name": "nonprofit_donation",
+    "product": "Community Table Fund",
+    "audience": "local donors",
+    "goal": "increase monthly donations",
+    "tone": "compassionate, specific, and transparent",
+    "channels": ["email", "Facebook", "community events"],
+    "expected_source": "nonprofit_donation_brand.md"
+  },
+  {
+    "name": "ai_productivity",
+    "product": "NotePilot AI",
+    "audience": "knowledge workers",
+    "goal": "increase product-led signups",
+    "tone": "sharp, helpful, and modern",
+    "channels": ["LinkedIn", "YouTube", "email"],
+    "expected_source": "ai_productivity_brand.md"
+  }
+]
+
