@@ -1,0 +1,16 @@
+{
+  "knowledge_base_dir": "knowledge_base",
+  "log_path": "runs/marketing_runs_det.jsonl",
+  "output_dir": "outputs",
+  "default_channels": [
+    "paid social",
+    "email",
+    "landing page"
+  ],
+  "review_threshold": 75,
+  "max_revision_rounds": 3,
+  "max_rag_chunks": 5,
+  "model_mode": "rule-based",
+  "prompt_dir": "prompts",
+  "benchmark_path": "benchmark_scenarios.json"
+}

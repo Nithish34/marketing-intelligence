@@ -17,6 +17,8 @@ class BenchmarkResult:
     expected_source: str
     matched_expected_source: bool
     retrieved_sources: list[str]
+    semantic_boost_applied: bool = False
+    goal_translation_used: bool = False
 
 
 def load_scenarios(path: Path | str = "benchmark_scenarios.json") -> list[dict[str, object]]:
@@ -41,7 +43,8 @@ def run_benchmark(config: AppConfig, scenarios_path: Path | str = "benchmark_sce
         )
         package = MarketingPipeline.from_config(config).run(request)
         retrieved_sources = [Path(chunk.source).name for chunk in package.retrieved_context]
-        expected_source = str(scenario.get("expected_source", ""))
+        expected_source_raw = scenario.get("expected_source")
+        expected_source = str(expected_source_raw) if expected_source_raw else ""
         results.append(
             BenchmarkResult(
                 name=str(scenario.get("name", request.product)),
@@ -50,6 +53,8 @@ def run_benchmark(config: AppConfig, scenarios_path: Path | str = "benchmark_sce
                 expected_source=expected_source,
                 matched_expected_source=expected_source in retrieved_sources if expected_source else True,
                 retrieved_sources=sorted(set(retrieved_sources)),
+                semantic_boost_applied=package.diagnostics.semantic_boost_applied,
+                goal_translation_used=package.diagnostics.goal_translation_used,
             )
         )
 
@@ -62,10 +67,12 @@ def summarize_benchmark(results: list[BenchmarkResult]) -> str:
 
     average = round(sum(result.score for result in results) / len(results))
     matched = sum(1 for result in results if result.matched_expected_source)
+    boosts = sum(1 for result in results if result.semantic_boost_applied)
     lines = [
         f"Benchmark scenarios: {len(results)}",
         f"Average campaign score: {average}/100",
         f"Expected-source matches: {matched}/{len(results)}",
+        f"Semantic search boosts: {boosts}/{len(results)}",
         "",
     ]
     for result in results:

@@ -1,0 +1,30 @@
+{
+  "knowledge_base_dir": "knowledge_base",
+  "log_path": "runs/marketing_runs.jsonl",
+  "output_dir": "outputs",
+  "default_channels": [
+    "paid social",
+    "email",
+    "landing page"
+  ],
+  "review_threshold": 75,
+  "max_revision_rounds": 3,
+  "max_rag_chunks": 5,
+  "model_mode": "rule-based",
+  "prompt_dir": "prompts",
+  "benchmark_path": "benchmark_scenarios.json",
+  "llm_base_url": "",
+  "llm_model": "",
+  "ollama_base_url": "http://localhost:11434",
+  "ollama_model": "qwen2.5:3b",
+  "openai_model": "gpt-4o",
+  "gemini_model": "gemini-2.0-flash",
+  "research_mode": null,
+  "strategy_mode": null,
+  "content_mode": null,
+  "review_mode": null,
+  "research_model": "qwen2.5:7b",
+  "strategy_model": "phi4-mini",
+  "content_model": "llama3.2:3b",
+  "review_model": "deepseek-r1:1.5b"
+}

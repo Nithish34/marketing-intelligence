@@ -2,8 +2,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from dataclasses import asdict
 from pathlib import Path
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # loads .env from the current working directory (or parent)
+except ImportError:
+    pass  # python-dotenv not installed; rely on environment variables being set manually
 
 from marketing_agents.config import AppConfig, write_default_config
 from marketing_agents.benchmark import run_benchmark, summarize_benchmark
@@ -15,7 +22,7 @@ from marketing_agents.rag import LocalKnowledgeBase
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run the v5 multi-agent marketing system.")
+    parser = argparse.ArgumentParser(description="Run the V7 multi-agent marketing system.")
     parser.add_argument("--config", default=None, help="Optional config JSON path")
 
     subparsers = parser.add_subparsers(dest="command")
@@ -129,6 +136,21 @@ def pipeline_from_args(args: argparse.Namespace, config: AppConfig) -> Marketing
         max_revision_rounds=config.max_revision_rounds,
         max_rag_chunks=config.max_rag_chunks,
         model_mode=config.model_mode,
+        prompt_dir=config.prompt_dir,
+        llm_base_url=config.llm_base_url,
+        llm_model=config.llm_model,
+        ollama_base_url=config.ollama_base_url,
+        ollama_model=config.ollama_model,
+        openai_model=config.openai_model,
+        gemini_model=config.gemini_model,
+        research_mode=config.research_mode,
+        strategy_mode=config.strategy_mode,
+        content_mode=config.content_mode,
+        review_mode=config.review_mode,
+        research_model=config.research_model,
+        strategy_model=config.strategy_model,
+        content_model=config.content_model,
+        review_model=config.review_model,
     )
     return MarketingPipeline.from_config(effective)
 
@@ -207,8 +229,10 @@ def print_package_summary(package) -> None:
     for chunk in package.retrieved_context:
         print(f"- {chunk.source}:{chunk.line_start}-{chunk.line_end} ({chunk.score}) {chunk.retrieval_reason}")
     print("\nAd variants:")
-    for ad in package.content.ad_variants:
-        print(f"- {ad}")
+    for index, ad in enumerate(package.content.ad_variants, start=1):
+        print(f"- Test cell {index}")
+        print(f"  Control: {ad.control}")
+        print(f"  Variant: {ad.variant}")
     print("\nSocial posts:")
     for post in package.content.social_posts:
         print(f"- {post['channel']}: {post['copy']}")

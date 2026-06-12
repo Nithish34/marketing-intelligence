@@ -1,9 +1,24 @@
-runs/
-outputs/
+# .env -- local secrets, never commit
+.env
+.env.*
+
+# V7.1: Persistent ChromaDB cache (rebuilt from knowledge_base/)
+.chroma_cache/
+
+# Python caches and test artifacts
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Local environment and packaging output
 .venv/
-dist/
-build/
 *.egg-info/
+
+# Generated campaign artifacts
+outputs/
+runs/
+memory/*.json
+
+# Marketing Agent V2 debug outputs
+marketing-agent-v2/debug/
+

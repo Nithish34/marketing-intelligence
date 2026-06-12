@@ -1,14 +1,17 @@
-# Cybersecurity SaaS Brand Context
+# SecureCloud Brand Context
 
-The product helps IT teams monitor risky logins, manage security alerts, and improve account protection across cloud tools.
+SecureCloud helps IT teams with cloud infrastructure security and monitoring. 
 
-The brand voice should be precise, credible, calm, and technical-but-readable. Avoid fearmongering, breach guarantees, unsupported security claims, and vague enterprise buzzwords.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for IT teams who need cloud infrastructure security and monitoring without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about risk visibility, alert quality, response speed, compliance readiness, and trust.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-LinkedIn, search ads, webinars, technical blogs
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Technical, evidence-led, practical, security-aware
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

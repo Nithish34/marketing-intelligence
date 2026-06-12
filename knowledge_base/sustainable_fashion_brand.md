@@ -1,14 +1,17 @@
-# Sustainable Fashion Brand Context
+# EcoWear Boutique Brand Context
 
-The product helps style-conscious shoppers buy durable wardrobe basics made with responsible materials and transparent production practices.
+EcoWear Boutique helps style-conscious shoppers with ethically sourced and sustainable clothing. 
 
-The brand voice should be thoughtful, modern, transparent, and stylish. Avoid greenwashing, moral superiority, vague sustainability claims, and fast-fashion shaming.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for style-conscious shoppers who need ethically sourced and sustainable clothing without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about quality, fit, material transparency, ethical production, durability, and versatile style.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, TikTok, email, product pages
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Editorial, visual, transparent, style-led
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

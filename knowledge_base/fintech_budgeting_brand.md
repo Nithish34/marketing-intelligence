@@ -1,14 +1,17 @@
-# Fintech Budgeting Brand Context
+# PocketPilot Brand Context
 
-The product helps young professionals track spending, build budgets, monitor subscriptions, and save toward short-term financial goals.
+PocketPilot helps young professionals with automated personal finance and budgeting. 
 
-The brand voice should be simple, empowering, honest, and nonjudgmental. Avoid investment advice, guaranteed savings claims, shame-based money messaging, and complex finance jargon.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for young professionals who need automated personal finance and budgeting without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about control over spending, visibility into recurring costs, saving more consistently, and reducing money stress.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-TikTok, Instagram, YouTube, email
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Practical, educational, relatable, numbers-light
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

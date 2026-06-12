@@ -1,14 +1,17 @@
-# Real Estate Agent Brand Context
+# Metro Home Guide Brand Context
 
-The product helps first-time home buyers understand local listings, prepare for showings, compare neighborhoods, and navigate the buying process.
+Metro Home Guide helps first-time home buyers with navigating the urban real estate market with ease. 
 
-The brand voice should be knowledgeable, patient, local, and trustworthy. Avoid pressure tactics, guaranteed investment claims, market panic, and confusing real estate jargon.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for first-time home buyers who need navigating the urban real estate market with ease without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about affordability, neighborhood fit, timing, trustworthy guidance, and avoiding costly mistakes.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, Facebook, local SEO, email newsletter
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Local, educational, checklist-based, story-driven
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

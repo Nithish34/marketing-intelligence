@@ -1,14 +1,17 @@
-# Freelance Marketplace Brand Context
+# FreelanceHub Brand Context
 
-The product helps small businesses find vetted freelancers for design, development, writing, admin support, and project-based work.
+FreelanceHub helps small businesses with connecting businesses with vetted freelance talent. 
 
-The brand voice should be trustworthy, efficient, approachable, and practical. Avoid cheap-labor framing, unrealistic turnaround promises, and devaluing freelancer expertise.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for small businesses who need connecting businesses with vetted freelance talent without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about freelancer quality, project fit, budget control, speed, and reduced hiring risk.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-LinkedIn, Google Search, email, partnerships
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Trust-building, practical, comparison-led, founder-friendly
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

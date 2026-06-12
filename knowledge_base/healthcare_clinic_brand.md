@@ -1,14 +1,17 @@
-# Healthcare Clinic Brand Context
+# Neighborhood Care Clinic Brand Context
 
-The product helps local families book primary care appointments, preventive screenings, and follow-up visits with a neighborhood clinic.
+Neighborhood Care Clinic helps local families with accessible and compassionate family healthcare. 
 
-The brand voice should be warm, clear, respectful, and reassuring. Avoid diagnosis claims, urgent fear tactics, guaranteed outcomes, and complex medical language.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for local families who need accessible and compassionate family healthcare without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about appointment availability, trustworthy providers, insurance clarity, convenience, and respectful care.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Google Search, local SEO, email, SMS reminders
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Plain-language, supportive, local, trust-focused
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

@@ -1,14 +1,17 @@
-# Fitness Studio Brand Context
+# FitStart Studio Brand Context
 
-The product helps beginners and busy professionals build consistent fitness habits through small group classes, coaching, and flexible schedules.
+FitStart Studio helps beginners and busy professionals with welcoming, high-intensity group fitness classes. 
 
-The brand voice should be encouraging, energetic, inclusive, and realistic. Avoid body shaming, extreme transformation claims, injury guarantees, and intimidation.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for beginners and busy professionals who need welcoming, high-intensity group fitness classes without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about confidence, consistency, schedule fit, supportive coaching, and feeling welcome.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, TikTok, local SEO, referral campaigns
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Motivational, inclusive, habit-focused, community-driven
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

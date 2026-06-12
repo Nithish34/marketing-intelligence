@@ -1,6 +1,17 @@
-# Sample Brand Context
+# Acme Campaign Builder Brand Context
 
-The product helps small marketing teams turn a campaign brief into channel-ready assets. The brand voice should be direct, practical, and credible. Avoid exaggerated claims, fear-based messaging, and vague productivity promises.
+Acme Campaign Builder helps small marketing teams with all-in-one marketing automation and campaign builder. 
 
-Typical customers care about speed, message consistency, team review workflows, and generating enough variants to test before launch.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for small marketing teams who need all-in-one marketing automation and campaign builder without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
+
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
+
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
+
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

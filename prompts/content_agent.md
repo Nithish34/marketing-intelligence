@@ -12,9 +12,10 @@ Return JSON with:
 - revision_notes
 
 Rules:
-- Create at least 5 ad variants.
+- Create at least 5 A/B ad test cells.
+- `ad_variants` MUST be a list of objects shaped as `{ "control": "...", "variant": "..." }`.
+- Each control and variant must be usable ad copy, not labels or notes.
 - Create at least 3 email drafts.
 - Each social post must include a channel and copy.
 - Include a landing page headline, subheadline, primary CTA, and secondary CTA.
 - Do not violate avoid rules.
-

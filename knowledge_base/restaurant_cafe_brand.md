@@ -1,14 +1,17 @@
-# Restaurant Cafe Brand Context
+# Corner Cup Cafe Brand Context
 
-The product helps busy local customers find fresh coffee, quick breakfast, lunch specials, and a comfortable neighborhood cafe experience.
+Corner Cup Cafe helps busy local customers with artisanal coffee and quick, healthy breakfast options. 
 
-The brand voice should be friendly, warm, casual, and community-focused. Avoid generic food hype, exaggerated health claims, and overly formal language.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for busy local customers who need artisanal coffee and quick, healthy breakfast options without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about taste, freshness, convenience, atmosphere, price, and supporting local businesses.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, Google Business Profile, SMS, local partnerships
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Visual, seasonal, community-oriented, appetizing
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

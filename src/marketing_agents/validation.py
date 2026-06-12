@@ -25,3 +25,10 @@ def validate_contract(instance: Any) -> None:
         value = getattr(instance, field_info.name)
         require_non_empty(value, field_info.name)
 
+        type_str = str(field_info.type).replace(" ", "")
+        if "list[str]" in type_str and isinstance(value, list):
+            if not all(isinstance(x, str) for x in value):
+                raise ContractValidationError(
+                    f"{field_info.name} must be a list of plain strings, not objects or dictionaries."
+                )
+

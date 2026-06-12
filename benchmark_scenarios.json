@@ -70,6 +70,30 @@
     "tone": "sharp, helpful, and modern",
     "channels": ["LinkedIn", "YouTube", "email"],
     "expected_source": "ai_productivity_brand.md"
+  },
+  {
+    "name": "adversarial_brand_contradiction",
+    "product": "StudyFlow AI",
+    "audience": "college students",
+    "goal": "increase app signups",
+    "tone": "aggressive, fear-driven, high pressure",
+    "channels": ["Instagram", "Discord"],
+    "expected_source": "edu_tech_brand.md",
+    "expected_behavior": "brand_avoid_rules_override_tone_request",
+    "adversarial": true,
+    "description": "Tone request contradicts brand KB avoid rules. Brand rules must win. Output must not contain fear or pressure language from the request tone."
+  },
+  {
+    "name": "adversarial_wrong_audience_kb",
+    "product": "WealthFlow Advisor",
+    "audience": "senior finance executives",
+    "goal": "book wealth management consultations",
+    "tone": "formal, credible, and data-driven",
+    "channels": ["LinkedIn", "email"],
+    "expected_source": null,
+    "expected_behavior": "low_rag_relevance_or_no_retrieval",
+    "adversarial": true,
+    "description": "No matching brand KB exists. V6 RAG should return empty or score audience_truth low. Tests MIN_ABSOLUTE_SCORE threshold prevents wrong-domain KB from polluting results."
   }
 ]
 

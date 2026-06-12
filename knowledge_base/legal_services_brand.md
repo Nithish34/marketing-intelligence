@@ -1,14 +1,17 @@
-# Legal Services Brand Context
+# BizLegal Advisor Brand Context
 
-The product helps small business owners understand contracts, consultations, compliance basics, and when to seek legal support.
+BizLegal Advisor helps small business owners with affordable corporate legal guidance and contracts. 
 
-The brand voice should be precise, calm, professional, and approachable. Avoid legal guarantees, fear-based lawsuits messaging, specific legal advice without consultation, and dense legalese.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for small business owners who need affordable corporate legal guidance and contracts without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about clarity, risk reduction, affordability, responsiveness, and trust.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Google Search, LinkedIn, email, local SEO
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Educational, plain-language, authority-building, checklist-based
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

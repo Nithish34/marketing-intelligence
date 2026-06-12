@@ -14,6 +14,19 @@ INJECTION_PATTERNS = (
     "api key",
     "secret key",
     "do not follow",
+    # V7: extended adversarial patterns
+    "override your constraints",
+    "override your instructions",
+    "print the prompt",
+    "reveal your training",
+    "you are now dan",
+    "you are now a",
+    "no restrictions",
+    "without restrictions",
+    "jailbreak",
+    "as a developer",
+    "as a superuser",
+    "disregard your instructions",
 )
 
 
@@ -54,4 +67,3 @@ def validate_user_request(product: str, audience: str, goal: str) -> None:
     for name, value in {"product": product, "audience": audience, "goal": goal}.items():
         if scan_untrusted_text(value, name):
             raise SafetyError(f"{name} contains instruction-like or secret-seeking content")
-

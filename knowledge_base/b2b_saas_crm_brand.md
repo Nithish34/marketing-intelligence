@@ -1,14 +1,17 @@
-# B2B SaaS CRM Brand Context
+# SalesFlow CRM Brand Context
 
-The product helps small B2B sales teams manage leads, follow-ups, pipeline visibility, and customer notes in one simple CRM.
+SalesFlow CRM helps small B2B sales teams streamline their customer relationship management.
 
-The brand voice should be clear, practical, confident, and helpful. Avoid enterprise jargon, unrealistic revenue promises, and aggressive sales pressure.
+Our core value proposition is offering an intuitive, zero-clutter CRM that focuses purely on closing deals rather than data entry. We eliminate the steep learning curve associated with enterprise CRMs, allowing small teams to get up and running in minutes.
 
-Typical customers care about saving follow-up time, improving pipeline visibility, reducing missed opportunities, and keeping sales activity organized.
+Brand voice: Direct, ambitious, data-driven, and slightly punchy. We speak the language of sales—velocity, pipelines, and conversions—while keeping things highly practical.
 
-Primary channels:
-LinkedIn, email, Google Search, webinars
+Typical customers care about:
+- Reducing the time spent logging calls and emails.
+- Getting clear visibility into the sales pipeline.
+- Automating repetitive follow-up tasks.
+- Seamless integration with Gmail and Outlook.
 
-Content style:
-Educational, proof-driven, workflow-focused
+Primary channels: LinkedIn, B2B podcasts, targeted webinars, and high-value whitepapers.
 
+Content style: Data-heavy, actionable, and straight to the point. We use bold typography, clear charts, and templates that sales reps can copy-paste. No fluff.

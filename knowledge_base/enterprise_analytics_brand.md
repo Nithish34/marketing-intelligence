@@ -1,14 +1,17 @@
-# Enterprise Analytics Brand Context
+# MetricsBoard Brand Context
 
-The product helps enterprise teams unify dashboards, monitor business metrics, and turn operational data into executive-ready reporting.
+MetricsBoard helps enterprise teams with centralized business intelligence dashboards. 
 
-The brand voice should be authoritative, concise, analytical, and business-focused. Avoid vague AI claims, dashboard overload messaging, guaranteed ROI, and buzzword-heavy copy.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for enterprise teams who need centralized business intelligence dashboards without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about data trust, faster reporting, stakeholder alignment, governance, and decision clarity.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-LinkedIn, webinars, analyst reports, email
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Executive, data-driven, concise, insight-led
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

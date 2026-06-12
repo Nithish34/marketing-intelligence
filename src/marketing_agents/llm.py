@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import urllib.request
 from abc import ABC, abstractmethod
 from dataclasses import asdict
@@ -26,7 +27,7 @@ class MarketingModel(ABC):
 
 
 class RuleBasedMarketingModel(MarketingModel):
-    """Deterministic local model for v5 development and tests."""
+    """Deterministic local model for V7 development and tests."""
 
     def research(self, request: CampaignRequest, brand_facts: BrandFacts) -> ResearchBrief:
         product = request.product
@@ -58,10 +59,12 @@ class RuleBasedMarketingModel(MarketingModel):
                 "Create channel-specific variants while keeping one clear promise.",
             ],
             assumptions=[
-                "The campaign should optimize for a first signup or demo action, not final purchase.",
+                "The campaign should optimise for a first signup or demo action, not final purchase.",
                 "The strongest claims should come from the retrieved brand context or user request.",
             ],
             citations=brand_facts.citations,
+            # Placeholder — ResearchAgent.run() will override this via goal_translator.
+            translated_goal=request.goal,
         )
 
     def strategy(self, request: CampaignRequest, research: ResearchBrief) -> StrategyBrief:
@@ -106,23 +109,42 @@ class RuleBasedMarketingModel(MarketingModel):
 
     def content(self, request: CampaignRequest, research: ResearchBrief, strategy: StrategyBrief) -> dict[str, object]:
         priority = research.brand_facts.customer_priorities[0] if research.brand_facts.customer_priorities else "saving time"
-        style = ", ".join(research.brand_facts.content_style[:2]) or request.tone
+        voice_str = ", ".join(research.brand_facts.voice[:2]) if research.brand_facts.voice else ""
+        content_style_str = ", ".join(research.brand_facts.content_style[:2]) if research.brand_facts.content_style else ""
+        style = ", ".join(filter(None, [content_style_str, voice_str])) or request.tone
         avoid_note = research.brand_facts.avoid[0] if research.brand_facts.avoid else "unsupported claims"
         channels = research.brand_facts.preferred_channels or request.channels
+        # V7: use the customer-language translation instead of the raw business goal.
+        translated = research.translated_goal
         is_student_campaign = any(
             marker in " ".join([request.audience, research.brand_facts.value_proposition]).lower()
             for marker in ("student", "study", "assignment", "exam", "academic")
         )
         if not is_student_campaign:
-            return self._business_content(request, research, strategy, priority, style, avoid_note, channels)
+            return self._business_content(request, research, strategy, priority, style, avoid_note, channels, translated)
 
         return {
             "ad_variants": [
-                f"Plan your week before it gets messy. {request.product} helps {request.audience} make {priority} feel achievable.",
-                f"Assignments, study time, and reminders in one calmer flow. Try {request.product}.",
-                f"Make exam prep feel less scattered with a plan you can actually follow.",
-                f"Built for {request.audience} who want {priority} without extra pressure.",
-                f"Start with one plan today. Let {request.product} help you {request.goal}.",
+                {
+                    "control": f"Plan your week before it gets messy. {request.product} helps {request.audience} make {priority} feel achievable.",
+                    "variant": f"Turn deadline stress into one clear plan with {request.product}."
+                },
+                {
+                    "control": f"Assignments, study time, and reminders in one calmer flow. Try {request.product}.",
+                    "variant": f"See what needs attention today, then build a study plan you can actually follow."
+                },
+                {
+                    "control": f"Build a steadier study habit one task at a time with {request.product}.",
+                    "variant": f"Small study steps add up when your assignments and reminders stay visible."
+                },
+                {
+                    "control": f"Join students using {request.product} to keep classes, deadlines, and exam prep organized.",
+                    "variant": f"Study planning feels easier when your week has one shared rhythm."
+                },
+                {
+                    "control": f"Start with your next deadline. {request.product} turns it into a practical study plan.",
+                    "variant": f"Create your first study plan and take the next step with less scrambling."
+                },
             ],
             "social_posts": [
                 self._social_post(channel, request, strategy, priority, style)
@@ -132,9 +154,9 @@ class RuleBasedMarketingModel(MarketingModel):
                 {
                     "subject": "A calmer way to plan your study week",
                     "body": (
-                        f"Hi there,\n\nIf your schedule keeps changing, {request.product} can help you organize "
+                        f"Hi there,\n\nIf your schedule keeps changing, {request.product} can help you organise "
                         f"assignments, study time, and reminders around {priority}.\n\n"
-                        "Start with one plan and adjust as your week changes."
+                        f"Start with one plan and adjust as your week changes.\n\nTry it → {translated}."
                     ),
                 },
                 {
@@ -142,7 +164,7 @@ class RuleBasedMarketingModel(MarketingModel):
                     "body": (
                         f"Hi there,\n\n{request.product} helps {request.audience} turn deadlines and exam prep "
                         "into a practical plan with reminders.\n\n"
-                        "Simple planning support for the next thing on your list."
+                        f"Simple planning support for the next thing on your list.\n\nReply to {translated}."
                     ),
                 },
                 {
@@ -150,14 +172,14 @@ class RuleBasedMarketingModel(MarketingModel):
                     "body": (
                         f"Hi there,\n\nWhen classes, assignments, and personal life compete for attention, "
                         f"{request.product} helps keep the plan visible and manageable.\n\n"
-                        "Try it for your next study week."
+                        f"Try it for your next study week — {translated}."
                     ),
                 },
             ],
             "landing_page_copy": {
                 "headline": f"Plan study weeks that feel easier to follow",
                 "subheadline": (
-                    f"{request.product} helps {request.audience} organize assignments, study schedules, "
+                    f"{request.product} helps {request.audience} organise assignments, study schedules, "
                     f"and exam prep with {style} guidance, so {priority} feels easier to maintain."
                 ),
                 "primary_cta": "Create my study plan",
@@ -176,14 +198,30 @@ class RuleBasedMarketingModel(MarketingModel):
         style: str,
         avoid_note: str,
         channels: list[str],
+        translated: str,
     ) -> dict[str, object]:
         return {
             "ad_variants": [
-                f"Turn scattered campaign work into a clearer plan. {request.product} helps {request.audience} make {priority} feel achievable.",
-                f"Keep strategy, copy, and review moving in the same direction with {request.product}.",
-                f"Built for {request.audience} who need consistent campaigns without extra process.",
-                f"Make {request.goal} easier to execute with messaging your team can review faster.",
-                f"Start with one campaign promise, then adapt it across channels with {request.product}.",
+                {
+                    "control": f"Turn scattered campaign work into a clearer plan. {request.product} helps {request.audience} make {priority} feel achievable.",
+                    "variant": f"Give every campaign asset one focused promise before work spreads across channels."
+                },
+                {
+                    "control": f"Keep strategy, copy, and review moving in the same direction with {request.product}.",
+                    "variant": f"Align campaign ideas, channel copy, and review notes before message drift starts."
+                },
+                {
+                    "control": f"Build a repeatable campaign habit around {priority} with {request.product}.",
+                    "variant": f"Move from one-off campaign scrambles to a clearer weekly workflow."
+                },
+                {
+                    "control": f"Help your team see the same campaign direction, from first brief to final copy.",
+                    "variant": f"{request.product} gives {request.audience} a shared place to shape the message."
+                },
+                {
+                    "control": f"Ready to {translated}? Start with a focused sample campaign from {request.product}.",
+                    "variant": f"See the campaign workflow in action with a low-friction walkthrough."
+                },
             ],
             "social_posts": [
                 self._business_social_post(channel, request, strategy, priority, style)
@@ -191,11 +229,11 @@ class RuleBasedMarketingModel(MarketingModel):
             ],
             "email_drafts": [
                 {
-                    "subject": f"A clearer path to {request.goal}",
+                    "subject": f"A clearer path to {translated}",
                     "body": (
-                        f"Hi there,\n\nIf your team is trying to {request.goal}, {request.product} can help turn "
-                        f"campaign ideas into practical assets while keeping the message focused on {priority}.\n\n"
-                        "Want to see a sample campaign package?"
+                        f"Hi there,\n\nIf your team is working on {priority}, {request.product} can turn "
+                        f"campaign ideas into practical assets while keeping the message focused.\n\n"
+                        f"Want to {translated}? I can send a sample campaign package."
                     ),
                 },
                 {
@@ -203,25 +241,25 @@ class RuleBasedMarketingModel(MarketingModel):
                     "body": (
                         f"Hi there,\n\n{request.audience} often lose time when strategy, copy, and review happen in separate places. "
                         f"{request.product} keeps the campaign direction clearer from the start.\n\n"
-                        "Happy to share what that workflow looks like."
+                        "Happy to share what that workflow looks like — reply to book 15 minutes."
                     ),
                 },
                 {
                     "subject": "More variants, less message drift",
                     "body": (
-                        f"Hi there,\n\nWhen the goal is {request.goal}, every channel needs to carry the same promise. "
+                        f"Hi there,\n\nEvery channel needs to carry the same promise. "
                         f"{request.product} helps create variants without losing the core idea.\n\n"
-                        "Can I send over an example?"
+                        f"Can I send over an example? Reply or click to {translated}."
                     ),
                 },
             ],
             "landing_page_copy": {
-                "headline": f"Build campaigns that help {request.audience} {request.goal}",
+                "headline": f"Build campaigns that help {request.audience} {translated}",
                 "subheadline": (
                     f"{request.product} helps teams turn strategy into ads, posts, emails, and landing page copy "
                     f"with {style} execution."
                 ),
-                "primary_cta": "Generate my campaign",
+                "primary_cta": f"See it in action",
                 "secondary_cta": "See sample output",
                 "compliance_note": "Draft keeps claims specific, calm, and grounded.",
             },
@@ -291,12 +329,13 @@ class HttpJsonMarketingModel(MarketingModel):
     MARKETING_AGENT_LLM_API_KEY, a base URL in config, and JSON-only responses.
     """
 
-    def __init__(self, base_url: str, model: str, prompts: PromptLibrary) -> None:
+    def __init__(self, base_url: str, model: str, prompts: PromptLibrary, timeout: int = 600) -> None:
         if not base_url or not model:
             raise ValueError("HTTP LLM mode requires llm_base_url and llm_model in config")
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.prompts = prompts
+        self.timeout = timeout
 
     def research(self, request: CampaignRequest, brand_facts: BrandFacts) -> ResearchBrief:
         data = self._call_json(
@@ -315,6 +354,8 @@ class HttpJsonMarketingModel(MarketingModel):
             opportunities=list_value(data, "opportunities"),
             assumptions=list_value(data, "assumptions"),
             citations=list_value(data, "citations", brand_facts.citations),
+            # Placeholder — ResearchAgent.run() will override with translate_goal().
+            translated_goal=request.goal,
         )
 
     def strategy(self, request: CampaignRequest, research: ResearchBrief) -> StrategyBrief:
@@ -392,8 +433,146 @@ class HttpJsonMarketingModel(MarketingModel):
                 "Content-Type": "application/json",
             },
         )
-        with urllib.request.urlopen(request, timeout=60) as response:
-            response_data = json.loads(response.read().decode("utf-8"))
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                response_data = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            raise RuntimeError(
+                f"LLM API returned HTTP {exc.code}: {exc.reason}\n{body}"
+            ) from exc
 
         content = response_data["choices"][0]["message"]["content"]
         return extract_json_object(content)
+
+
+class OllamaMarketingModel(HttpJsonMarketingModel):
+    """Adapter for a locally running Ollama instance.
+
+    Uses Ollama's OpenAI-compatible endpoint at /v1/chat/completions so
+    it can reuse all of HttpJsonMarketingModel's JSON parsing logic.
+    No API key is required for local Ollama.
+
+    Usage in config.yaml:
+        model_mode: ollama
+        ollama_model: qwen2.5:3b
+        ollama_base_url: http://localhost:11434
+
+    This enables A/B comparison runs: point the same pipeline at the
+    rule-based model and an Ollama model to compare output quality side
+    by side in the JSONL log via RunDiagnostics.
+    """
+
+    def __init__(self, base_url: str, model: str, prompts: PromptLibrary) -> None:
+        # Ensure we always hit the OpenAI-compatible endpoint
+        url = base_url.rstrip("/")
+        if not url.endswith("/v1/chat/completions"):
+            url = f"{url}/v1/chat/completions"
+        # Use a longer timeout for local models — large models (e.g. qwen2.5:7b)
+        # need time to load into memory on a cold start.
+        super().__init__(url, model, prompts, timeout=1800)
+
+    def _call_json(self, system_prompt: str, payload: dict[str, object]) -> dict[str, object]:
+        """Override to skip the API key requirement — Ollama runs locally."""
+        # Temporarily set a dummy key so the parent's Authorization header is populated.
+        # Ollama ignores the Bearer token for local instances.
+        original_key = os.environ.get("MARKETING_AGENT_LLM_API_KEY")
+        if not original_key:
+            os.environ["MARKETING_AGENT_LLM_API_KEY"] = "ollama-local"
+        try:
+            return super()._call_json(system_prompt, payload)
+        finally:
+            if not original_key:
+                del os.environ["MARKETING_AGENT_LLM_API_KEY"]
+
+
+class OpenAIMarketingModel(HttpJsonMarketingModel):
+    """Adapter for OpenAI's API.
+    
+    Expects OPENAI_API_KEY to be set. Uses the standard chat completions endpoint.
+    """
+
+    def __init__(self, model: str, prompts: PromptLibrary) -> None:
+        super().__init__(
+            base_url="https://api.openai.com/v1/chat/completions",
+            model=model,
+            prompts=prompts,
+        )
+
+    def _call_json(self, system_prompt: str, payload: dict[str, object]) -> dict[str, object]:
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("Set OPENAI_API_KEY to use the openai model mode")
+        
+        # Temporarily swap keys for the parent class
+        original = os.environ.get("MARKETING_AGENT_LLM_API_KEY")
+        os.environ["MARKETING_AGENT_LLM_API_KEY"] = api_key
+        try:
+            return super()._call_json(system_prompt, payload)
+        finally:
+            if original is not None:
+                os.environ["MARKETING_AGENT_LLM_API_KEY"] = original
+            else:
+                del os.environ["MARKETING_AGENT_LLM_API_KEY"]
+
+
+class GeminiMarketingModel(HttpJsonMarketingModel):
+    """Adapter for Gemini's OpenAI-compatible API.
+    
+    Expects GEMINI_API_KEY to be set.
+    """
+
+    def __init__(self, model: str, prompts: PromptLibrary) -> None:
+        super().__init__(
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+            model=model,
+            prompts=prompts,
+        )
+
+    def _call_json(self, system_prompt: str, payload: dict[str, object]) -> dict[str, object]:
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise RuntimeError("Set GEMINI_API_KEY to use the gemini model mode")
+
+        original = os.environ.get("MARKETING_AGENT_LLM_API_KEY")
+        os.environ["MARKETING_AGENT_LLM_API_KEY"] = api_key
+        try:
+            return self._call_with_retry(system_prompt, payload)
+        finally:
+            if original is not None:
+                os.environ["MARKETING_AGENT_LLM_API_KEY"] = original
+            else:
+                del os.environ["MARKETING_AGENT_LLM_API_KEY"]
+
+    def _call_with_retry(
+        self, system_prompt: str, payload: dict[str, object], max_attempts: int = 3
+    ) -> dict[str, object]:
+        """Call the parent _call_json with automatic 429 retry.
+
+        Reads the retryDelay field from the Gemini error response body and
+        waits exactly that long (plus a 2-second buffer) before retrying.
+        Falls back to exponential backoff if the field is absent.
+        """
+        import re
+
+        for attempt in range(1, max_attempts + 1):
+            try:
+                return super()._call_json(system_prompt, payload)
+            except RuntimeError as exc:
+                body = str(exc)
+                if "429" not in body or attempt == max_attempts:
+                    raise
+
+                # Try to read the suggested retryDelay from the Gemini response.
+                wait = 60  # default fallback
+                match = re.search(r'"retryDelay":\s*"(\d+)', body)
+                if match:
+                    wait = int(match.group(1)) + 2  # add 2s buffer
+                else:
+                    wait = min(15 * (2 ** (attempt - 1)), 120)  # 15s, 30s, 60s…
+
+                print(
+                    f"[GeminiMarketingModel] rate-limited (attempt {attempt}/{max_attempts}). "
+                    f"Waiting {wait}s before retry…"
+                )
+                time.sleep(wait)

@@ -1,14 +1,17 @@
-# Event Planning Brand Context
+# EventPlanner Pro Brand Context
 
-The product helps companies plan conferences, workshops, team retreats, and launch events with vendor coordination and attendee experience support.
+EventPlanner Pro helps companies with corporate event and conference management. 
 
-The brand voice should be polished, organized, creative, and calm. Avoid overpromising perfect events, vague luxury language, and stressful urgency.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for companies who need corporate event and conference management without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about reliability, budget control, attendee experience, vendor management, and reducing planning stress.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-LinkedIn, Instagram, email, referral partnerships
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Portfolio-led, organized, visual, outcome-focused
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

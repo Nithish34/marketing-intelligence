@@ -60,7 +60,14 @@ def render_markdown(package: CampaignPackage) -> str:
         for chunk in package.retrieved_context
     )
     lines.extend(["", "## Ad Variants"])
-    lines.extend(f"- {ad}" for ad in package.content.ad_variants)
+    for index, ad in enumerate(package.content.ad_variants, start=1):
+        lines.extend(
+            [
+                f"### Test Cell {index}",
+                f"- Control: {ad.control}",
+                f"- Variant: {ad.variant}",
+            ]
+        )
     lines.extend(["", "## Social Posts"])
     lines.extend(f"- **{post['channel']}**: {post['copy']}" for post in package.content.social_posts)
     lines.extend(["", "## Emails"])

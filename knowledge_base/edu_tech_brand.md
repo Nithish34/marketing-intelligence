@@ -1,13 +1,17 @@
-# Sample Brand Context
+# StudyFlow AI Brand Context
 
-The product helps college students organize assignments, study schedules, and exam preparation using AI-generated plans and reminders.
+StudyFlow AI helps college students manage their assignments, track deadlines, and optimize their study schedules using artificial intelligence. 
 
-The brand voice should be motivating, clear, and practical. Avoid corporate language, unrealistic success promises, and academic pressure tactics.
+Our core value proposition is transforming overwhelming syllabi into actionable, personalized, and manageable daily tasks, reducing student anxiety and improving academic performance. 
 
-Typical customers care about saving time, reducing stress, maintaining consistency, and balancing academics with personal life.
+Brand voice: Encouraging, organized, slightly witty, and highly empathetic to the stresses of academic life. We aim to sound like a smart, older peer mentor who has their life perfectly together.
 
-Primary channels:
-Instagram, YouTube, Discord, LinkedIn
+Typical customers care about: 
+- Never missing a deadline or forgetting an assignment.
+- Maximizing free time without sacrificing grades.
+- Reducing the feeling of being overwhelmed by multiple classes.
+- Easy integration with their existing tools (Canvas, Blackboard, Google Calendar).
 
-Content style:
-Educational, relatable, productivity-focused
+Primary channels: TikTok, Instagram Reels, YouTube sponsorships, and campus ambassador programs.
+
+Content style: Highly visual, fast-paced, and relatable. We use memes and trending audio on social media, paired with practical, actionable study tips. Blog and email content should be highly structured, using bullet points, bold text, and clear takeaways.

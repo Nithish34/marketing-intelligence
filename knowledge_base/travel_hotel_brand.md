@@ -1,14 +1,17 @@
-# Travel Hotel Brand Context
+# StayLocal Boutique Hotel Brand Context
 
-The product helps travelers book boutique hotel stays with local experiences, comfortable rooms, and easy trip planning support.
+StayLocal Boutique Hotel helps travelers with authentic and luxurious local travel experiences. 
 
-The brand voice should be welcoming, polished, local, and relaxed. Avoid misleading luxury claims, hidden-fee language, generic travel cliches, and overpromising.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for travelers who need authentic and luxurious local travel experiences without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about location, comfort, local recommendations, price transparency, and memorable experiences.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, Google Search, travel blogs, email
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Visual, experiential, local-guide, aspirational but honest
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

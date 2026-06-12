@@ -1,14 +1,17 @@
-# Home Services Brand Context
+# HomeFix Local Brand Context
 
-The product helps homeowners schedule cleaning, plumbing, electrical, and handyman services with vetted local professionals.
+HomeFix Local helps homeowners with reliable on-demand home repair and handyman services. 
 
-The brand voice should be trustworthy, friendly, responsive, and clear. Avoid fear-based home damage messaging, hidden-fee language, unrealistic availability promises, and contractor jargon.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for homeowners who need reliable on-demand home repair and handyman services without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about trust, speed, clear pricing, scheduling convenience, and quality work.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Google Search, local SEO, Facebook, SMS
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Local, practical, reassuring, service-focused
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

@@ -1,14 +1,17 @@
-# Pet Care Ecommerce Brand Context
+# Paws & Claws Boutique Brand Context
 
-The product helps pet owners buy healthy treats, grooming essentials, toys, and subscription boxes for dogs and cats.
+Paws & Claws Boutique helps pet owners with premium pet food and engaging toys. 
 
-The brand voice should be friendly, playful, caring, and practical. Avoid veterinary claims, guilt-based pet parent messaging, exaggerated health promises, and confusing ingredient claims.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for pet owners who need premium pet food and engaging toys without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about pet safety, quality ingredients, convenience, price, and making pets happy.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-Instagram, TikTok, email, product pages
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Visual, playful, educational, lifestyle-focused
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.

@@ -1,14 +1,17 @@
-# HR Recruiting SaaS Brand Context
+# HiringHub Brand Context
 
-The product helps hiring teams manage candidates, schedule interviews, collaborate on feedback, and improve recruiter visibility.
+HiringHub helps hiring teams with applicant tracking and interview scheduling. 
 
-The brand voice should be efficient, professional, clear, and people-centered. Avoid dehumanizing automation language, unrealistic hiring speed claims, and compliance guarantees.
+Our core value proposition is delivering reliable, high-quality solutions tailored specifically for hiring teams who need applicant tracking and interview scheduling without unnecessary complexity. We empower our users to achieve their goals faster, better, and with more confidence.
 
-Typical customers care about candidate experience, recruiter workload, interview coordination, hiring visibility, and team alignment.
+Brand voice: Professional yet approachable. We use clear, engaging language that builds trust. We are authoritative in our field but never condescending, always aiming to educate and uplift our audience.
 
-Primary channels:
-LinkedIn, webinars, email, search ads
+Typical customers care about:
+- Efficiency and saving time in their daily routines.
+- High-quality results that they can rely on consistently.
+- Responsive support and a brand that understands their specific pain points.
+- Good value for money and transparent pricing.
 
-Content style:
-Operational, practical, insight-led, professional
+Primary channels: LinkedIn, Twitter, targeted email newsletters, and our industry-leading blog.
 
+Content style: Informative, structured, and visually clean. We prefer short paragraphs, bullet points for readability, and actionable takeaways in every piece of content. Case studies and customer testimonials are heavily featured.
