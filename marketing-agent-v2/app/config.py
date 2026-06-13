@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     scrape_max_pages: int = 5
     scrape_timeout_seconds: int = 30
     scrape_delay_seconds: float = 1.0
-    scrape_max_page_size_kb: int = 1024
+    scrape_max_page_size_kb: int = 5120
     scrape_user_agent: str = (
         "MarketingResearchBot/1.0 (+https://github.com/your-repo; research purposes)"
     )

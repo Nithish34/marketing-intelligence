@@ -21,6 +21,9 @@ dev = [
     "pytest>=8.0",
     "pytest-asyncio>=0.24",
 ]
+headless = [
+    "playwright>=1.40",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -28,5 +31,6 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 markers = [
     "integration: tests that hit real external websites (require network)",
+    "benchmark: regression benchmark tests against real companies (require network)",
 ]
 

@@ -40,6 +40,8 @@ from app.services.scraper import (
     _parse_page,
     _discover_target_pages,
     scrape_company,
+    _truncate_large_html,
+    MAX_PAGE_SIZE_BYTES,
 )
 from app.schemas.research import ScrapedPage
 from bs4 import BeautifulSoup, Tag
@@ -415,6 +417,20 @@ def _assert_valid_page(page: ScrapedPage, label: str) -> None:
         f"[{label}] Body text too short ({len(page.body_text)} chars)"
     )
     assert page.scrape_timestamp is not None, f"[{label}] Timestamp missing"
+
+
+class TestTruncateLargeHtml:
+    """Tests for _truncate_large_html()."""
+
+    def test_no_truncation_under_limit(self):
+        content = "<html>hello</html>"
+        assert _truncate_large_html(content) == content
+
+    def test_truncation_over_limit(self):
+        content = "a" * (MAX_PAGE_SIZE_BYTES + 100)
+        truncated = _truncate_large_html(content)
+        assert len(truncated) == MAX_PAGE_SIZE_BYTES
+        assert truncated == "a" * MAX_PAGE_SIZE_BYTES
 
 
 @pytest.mark.integration

@@ -3,6 +3,11 @@
 All external services are mocked.  These tests verify orchestration logic,
 error propagation, and the mandatory rule that debug persistence failures
 never kill research.
+
+Note: FAKE_PREPROCESSED uses word_count=600 and a long homepage_summary
+to stay above the headless fallback quality thresholds (MIN_WORD_COUNT=500,
+MIN_HOMEPAGE_CHARS=300).  This ensures these tests exercise the "good quality"
+path without triggering the fallback.
 """
 
 from __future__ import annotations
@@ -44,9 +49,9 @@ FAKE_PAGE = ScrapedPage(url="https://stripe.com", title="Stripe", body_text="Pay
 
 FAKE_PREPROCESSED = PreprocessedContent(
     company_name="Stripe",
-    homepage_summary="Stripe powers payments for the internet.",
+    homepage_summary="Stripe powers payments for the internet. " * 20,  # >300 chars
     combined_context="Stripe is a financial platform...",
-    word_count=500,
+    word_count=600,  # above MIN_WORD_COUNT (500)
 )
 
 
@@ -81,6 +86,10 @@ async def test_happy_path_returns_valid_research_output():
             "app.services.research_agent.save_debug_snapshot",
             return_value=Path("debug/research_outputs/stripe_test.json"),
         ),
+        patch(
+            "app.services.research_agent.scrape_company_headless",
+            new_callable=AsyncMock,
+        ) as headless_mock,
     ):
         result = await run_research(_make_request())
 
@@ -91,6 +100,8 @@ async def test_happy_path_returns_valid_research_output():
     assert result.metadata.pages_scraped == 1
     assert result.metadata.llm_model_used != ""
     assert result.metadata.processing_time_seconds >= 0
+    # Good quality — headless should NOT be called
+    headless_mock.assert_not_called()
 
 
 # ---------------------------------------------------------------------------
@@ -117,13 +128,20 @@ async def test_scraper_exception_raises_research_error():
 
 @pytest.mark.asyncio
 async def test_no_pages_scraped_raises_research_error():
-    """Scraper returns empty list → ResearchError raised."""
-    with patch(
-        "app.services.research_agent.scrape_company",
-        new_callable=AsyncMock,
-        return_value=[],
+    """Both static and headless return empty → ResearchError raised."""
+    with (
+        patch(
+            "app.services.research_agent.scrape_company",
+            new_callable=AsyncMock,
+            return_value=[],
+        ),
+        patch(
+            "app.services.research_agent.scrape_company_headless",
+            new_callable=AsyncMock,
+            return_value=[],
+        ),
     ):
-        with pytest.raises(ResearchError, match="No pages scraped"):
+        with pytest.raises(ResearchError, match="Both static and headless scraping failed"):
             await run_research(_make_request())
 
 
@@ -149,6 +167,10 @@ async def test_gemini_failure_propagates():
             "app.services.research_agent.analyze_company",
             new_callable=AsyncMock,
             side_effect=LLMClientError("Gemini 503 Service Unavailable"),
+        ),
+        patch(
+            "app.services.research_agent.scrape_company_headless",
+            new_callable=AsyncMock,
         ),
     ):
         with pytest.raises(LLMClientError, match="Gemini 503"):
@@ -181,6 +203,10 @@ async def test_debug_persistence_failure_does_not_kill_research():
         patch(
             "app.services.research_agent.save_debug_snapshot",
             side_effect=OSError("Disk full"),
+        ),
+        patch(
+            "app.services.research_agent.scrape_company_headless",
+            new_callable=AsyncMock,
         ),
     ):
         result = await run_research(_make_request())

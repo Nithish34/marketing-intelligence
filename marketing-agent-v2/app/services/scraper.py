@@ -45,6 +45,12 @@ from urllib.robotparser import RobotFileParser
 import httpx
 from bs4 import BeautifulSoup, Tag
 
+try:
+    from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+    HAS_PLAYWRIGHT = True
+except ImportError:
+    HAS_PLAYWRIGHT = False
+
 from app.config import settings
 from app.schemas.research import ScrapedPage
 
@@ -62,6 +68,14 @@ REQUEST_DELAY_SECONDS: float = settings.scrape_delay_seconds # 1.0
 MAX_PAGE_SIZE_BYTES: int = settings.scrape_max_page_size_kb * 1024  # 500 KB
 USER_AGENT: str = settings.scrape_user_agent
 MAX_CONTENT_CHARS: int = 50_000  # truncate body text beyond this
+
+
+def _truncate_large_html(html: str) -> str:
+    """Truncate HTML content if it exceeds the maximum page size limit."""
+    if len(html) > MAX_PAGE_SIZE_BYTES:
+        logger.warning("Page exceeded max size. Truncating.")
+        return html[:MAX_PAGE_SIZE_BYTES]
+    return html
 
 
 # Keywords used to identify company-intelligence pages from homepage links.
@@ -185,6 +199,50 @@ def _is_allowed(rp: RobotFileParser, url: str, user_agent: str) -> bool:
 #  4. HTTP FETCHING
 # ═══════════════════════════════════════════════════════════════════════
 
+async def _fetch_page_html_headless(url: str) -> tuple[str, str] | None:
+    """Fallback fetch using a headless browser via Playwright."""
+    if not HAS_PLAYWRIGHT:
+        logger.error("Playwright not installed. Cannot attempt headless fetch for %s", url)
+        return None
+
+    logger.info("Attempting headless fallback fetch for %s", url)
+    try:
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            context = await browser.new_context(
+                user_agent=USER_AGENT,
+                viewport={"width": 1280, "height": 800}
+            )
+            page = await context.new_page()
+            
+            response = await page.goto(url, timeout=TIMEOUT_SECONDS * 1000, wait_until="networkidle")
+            
+            if response is None:
+                logger.warning("Headless fetch returned no response for %s", url)
+                await browser.close()
+                return None
+                
+            if response.status != 200:
+                logger.warning("Headless fetch HTTP %d for %s", response.status, url)
+                # Note: Not aborting here, sometimes 403/503 from Cloudflare renders the real page after challenge
+            
+            html = await page.content()
+            final_url = page.url
+            
+            await browser.close()
+            
+            html = _truncate_large_html(html)
+            logger.info("Headless fetch successful for %s (%d KB)", final_url, len(html.encode("utf-8")) // 1024)
+            return html, final_url
+            
+    except PlaywrightTimeoutError:
+        logger.warning("Headless fetch timeout for %s — skipping", url)
+        return None
+    except Exception as exc:
+        logger.error("Headless fetch failed for %s: %r — skipping", url, exc)
+        return None
+
+
 async def _fetch_page_html(
     client: httpx.AsyncClient,
     url: str,
@@ -199,7 +257,9 @@ async def _fetch_page_html(
         final_url = str(resp.url)
 
         if resp.status_code != 200:
-            logger.warning("HTTP %d for %s — skipping", resp.status_code, url)
+            logger.warning("HTTP %d for %s — attempting headless fallback", resp.status_code, url)
+            if HAS_PLAYWRIGHT:
+                return await _fetch_page_html_headless(url)
             return None
 
         content_type = resp.headers.get("content-type", "")
@@ -207,25 +267,24 @@ async def _fetch_page_html(
             logger.info("Non-HTML content at %s (%s) — skipping", url, content_type)
             return None
 
-        size = len(resp.content)
-        if size > MAX_PAGE_SIZE_BYTES:
-            logger.warning(
-                "Page too large: %s (%d KB, limit %d KB) — skipping",
-                url, size // 1024, MAX_PAGE_SIZE_BYTES // 1024,
-            )
-            return None
-
-        logger.info("Fetched %s (%d KB)", final_url, size // 1024)
-        return resp.text, final_url
+        html = _truncate_large_html(resp.text)
+        logger.info("Fetched %s (%d KB)", final_url, len(html.encode("utf-8")) // 1024)
+        return html, final_url
 
     except httpx.TimeoutException:
-        logger.warning("Timeout fetching %s after %ds — skipping", url, TIMEOUT_SECONDS)
+        logger.warning("Timeout fetching %s after %ds — attempting headless fallback", url, TIMEOUT_SECONDS)
+        if HAS_PLAYWRIGHT:
+            return await _fetch_page_html_headless(url)
         return None
     except httpx.HTTPStatusError as exc:
-        logger.warning("HTTP error fetching %s: %s — skipping", url, exc)
+        logger.warning("HTTP error fetching %s: %s — attempting headless fallback", url, exc)
+        if HAS_PLAYWRIGHT:
+            return await _fetch_page_html_headless(url)
         return None
     except httpx.HTTPError as exc:
-        logger.warning("Network error fetching %s: %s — skipping", url, exc)
+        logger.warning("Network error fetching %s: %s — attempting headless fallback", url, exc)
+        if HAS_PLAYWRIGHT:
+            return await _fetch_page_html_headless(url)
         return None
     except Exception as exc:
         logger.error("Unexpected error fetching %s: %r — skipping", url, exc)

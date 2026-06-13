@@ -4,6 +4,24 @@ Coordinates the scrape → preprocess → analyze pipeline into a single
 ``run_research()`` call.  This module contains NO intelligence, NO prompt
 engineering, and NO business logic — it is pure orchestration.
 
+Pipeline flow::
+
+    static scrape
+          ↓
+    preprocess
+          ↓
+    quality check
+          │
+    good? ─── YES ──→ analyze → output
+          │
+          NO
+          ↓
+    headless scrape (fallback)
+          ↓
+    preprocess again
+          ↓
+    analyze → output
+
 Public API::
 
     result = await run_research(request)
@@ -26,11 +44,21 @@ from app.schemas.research import (
     ScrapedPage,
 )
 from app.services.debug_persistence import save_debug_snapshot
+from app.services.headless_scraper import scrape_company_headless
 from app.services.llm_client import analyze_company
 from app.services.preprocessor import preprocess
 from app.services.scraper import scrape_company
 
 logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Quality thresholds — static extraction below these triggers headless fallback
+# ---------------------------------------------------------------------------
+
+LOW_WORD_COUNT_THRESHOLD: int = 500
+WEAK_HOMEPAGE_THRESHOLD: int = 300
+MIN_TOTAL_SIGNAL_THRESHOLD: int = 1000
 
 
 # ---------------------------------------------------------------------------
@@ -43,22 +71,22 @@ class ResearchError(RuntimeError):
 
 
 # ---------------------------------------------------------------------------
-# Private helpers — each wraps exactly one service call
+# Private helpers
 # ---------------------------------------------------------------------------
 
 
-async def _scrape(url: str) -> list[ScrapedPage]:
-    """Scrape the company website.  Raises on empty result."""
-    pages = await scrape_company(url)
+async def _scrape_static(url: str) -> list[ScrapedPage]:
+    """Static scrape via httpx.  Returns empty list on failure (never raises)."""
+    return await scrape_company(url)
 
-    if not pages:
-        raise ResearchError(
-            f"No pages scraped from {url}. The site may be unreachable, "
-            "blocked by robots.txt, or returning non-HTML content."
-        )
 
-    logger.info("Scraped %d pages from %s", len(pages), url)
-    return pages
+async def _scrape_headless(url: str) -> list[ScrapedPage]:
+    """Headless browser scrape via Playwright.  Never raises."""
+    try:
+        return await scrape_company_headless(url)
+    except Exception as exc:
+        logger.warning("Headless scrape failed for %s: %s", url, exc)
+        return []
 
 
 def _preprocess(pages: list[ScrapedPage], company_name: str) -> PreprocessedContent:
@@ -70,6 +98,53 @@ def _preprocess(pages: list[ScrapedPage], company_name: str) -> PreprocessedCont
         content.word_count,
     )
     return content
+
+
+def _should_retry_headless(word_count: int, homepage_chars: int) -> bool:
+    """Determine if fallback to headless scraper is needed based on static signal quality."""
+    return (
+        word_count < LOW_WORD_COUNT_THRESHOLD
+        or (
+            homepage_chars < WEAK_HOMEPAGE_THRESHOLD
+            and word_count < MIN_TOTAL_SIGNAL_THRESHOLD
+        )
+    )
+
+
+BLOCK_PATTERNS: list[str] = [
+    "just a moment",
+    "checking your browser",
+    "verify you are human",
+    "cloudflare",
+]
+
+
+def _contains_bot_protection(pages: list[ScrapedPage]) -> bool:
+    """Check if any of the scraped pages contain bot-protection/blocking patterns."""
+    for page in pages:
+        title_lower = page.title.lower()
+        body_lower = page.body_text.lower()
+        for pattern in BLOCK_PATTERNS:
+            if pattern in title_lower or pattern in body_lower:
+                return True
+    return False
+
+
+def _log_extraction_quality(
+    method: str,
+    company_name: str,
+    pages: list[ScrapedPage],
+    content: PreprocessedContent,
+) -> None:
+    """Log extraction statistics for debugging."""
+    logger.info(
+        "%s extraction for %s: pages=%d, words=%d, homepage_chars=%d",
+        method.capitalize(),
+        company_name,
+        len(pages),
+        content.word_count,
+        len(content.homepage_summary),
+    )
 
 
 async def _analyze(content: PreprocessedContent) -> tuple[CompanyProfile, str, float]:
@@ -152,7 +227,7 @@ async def run_research(request: ResearchRequest) -> ResearchOutput:
     Raises
     ------
     ResearchError
-        If scraping or preprocessing fails.
+        If both static and headless scraping fail to produce usable content.
     LLMClientError (and subclasses)
         If Gemini analysis fails.
     """
@@ -161,16 +236,57 @@ async def run_research(request: ResearchRequest) -> ResearchOutput:
 
     logger.info("Starting research for %s (%s)", company_name, url)
 
-    # 1. Scrape
-    pages = await _scrape(url)
-
-    # 2. Preprocess
+    # 1. Static scrape
+    pages = await _scrape_static(url)
     preprocessed = _preprocess(pages, company_name)
+    _log_extraction_quality("static", company_name, pages, preprocessed)
 
-    # 3. Analyze
+    # 2. Headless fallback if quality is low
+    if _should_retry_headless(preprocessed.word_count, len(preprocessed.homepage_summary)) or len(pages) == 0:
+        logger.info(
+            "Low quality extraction:\nwords=%d\nhomepage_chars=%d\nretrying headless",
+            preprocessed.word_count,
+            len(preprocessed.homepage_summary),
+        )
+        headless_pages = await _scrape_headless(url)
+
+        if headless_pages:
+            if _contains_bot_protection(headless_pages):
+                logger.warning("Bot protection detected. Discarding headless result.")
+            else:
+                headless_preprocessed = _preprocess(headless_pages, company_name)
+                _log_extraction_quality(
+                    "headless", company_name, headless_pages, headless_preprocessed,
+                )
+
+                # Use headless result if it produced better content
+                if headless_preprocessed.word_count > preprocessed.word_count:
+                    logger.info(
+                        "Headless result is better for %s: %d -> %d words",
+                        company_name,
+                        preprocessed.word_count,
+                        headless_preprocessed.word_count,
+                    )
+                    pages = headless_pages
+                    preprocessed = headless_preprocessed
+                else:
+                    logger.info(
+                        "Static result was better for %s, keeping it",
+                        company_name,
+                    )
+
+    # 3. Final gate — never continue with zero pages
+    if not pages:
+        raise ResearchError(
+            f"No pages scraped from {url}. "
+            "Both static and headless scraping failed. "
+            "The site may be unreachable or blocking automated access."
+        )
+
+    # 4. Analyze
     profile, model_used, latency = await _analyze(preprocessed)
 
-    # 4. Build output
+    # 5. Build output
     metadata = _build_metadata(
         pages_scraped=len(pages),
         model_used=model_used,
@@ -184,7 +300,7 @@ async def run_research(request: ResearchRequest) -> ResearchOutput:
         metadata=metadata,
     )
 
-    # 5. Debug snapshot (non-critical)
+    # 6. Debug snapshot (non-critical)
     _save_snapshot_safe(result, preprocessed, model_used, latency)
 
     logger.info(
